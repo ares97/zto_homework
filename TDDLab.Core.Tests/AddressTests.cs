@@ -22,6 +22,5 @@ namespace TDDLab.Core.Tests
             var address = TestData.ValidAddress;
             Assert.IsTrue(address.IsValid);
         }
-
     }
 }

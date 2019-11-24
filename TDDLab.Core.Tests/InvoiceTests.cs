@@ -18,7 +18,7 @@ namespace TDDLab.Core.Tests
             _invoiceWithOneLineAndTwoUsdDiscount = new Invoice("13", TestData.ValidRecipient, TestData.ValidAddress,
                 new[] {TestData.InvoiceLineButter}, TestData.TwoUsd);
         }
-        
+
 
         [Test]
         public void can_create_valid_invoice()
@@ -42,8 +42,8 @@ namespace TDDLab.Core.Tests
 
             Assert.Contains(cocaCola, _invoiceWithTwoLines.Lines.ToList());
         }
-        
-        
+
+
         [Test]
         public void line_invoice_has_reference_to_its_invoice()
         {
@@ -52,7 +52,5 @@ namespace TDDLab.Core.Tests
 
             Assert.AreSame(cocaCola.Invoice, _invoiceWithTwoLines);
         }
-        
-        
     }
 }

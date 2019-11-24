@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Net;
 using NUnit.Framework;
 using TDDLab.Core.InvoiceMgmt;
 

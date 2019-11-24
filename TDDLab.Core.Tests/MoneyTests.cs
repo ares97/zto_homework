@@ -12,7 +12,7 @@ namespace TDDLab.Core.Tests
             var money = new Money(amount);
             Assert.AreEqual(money.Amount, amount);
         }
-        
+
 
         [TestCase(2ul, "USD")]
         [TestCase(0ul, "PLN")]
@@ -81,7 +81,8 @@ namespace TDDLab.Core.Tests
         [TestCase("USD", "USD", "USD")]
         [TestCase("USD", "PLN", "USD")]
         [TestCase("PLN", "USD", "PLN")]
-        public void should_convert_to_currency_same_as_in_first_param(string firstCurrency, string secondCurrency, string expectedCurrency)
+        public void should_convert_to_currency_same_as_in_first_param(string firstCurrency, string secondCurrency,
+            string expectedCurrency)
         {
             var first = new Money(11, firstCurrency);
             var second = new Money(11, secondCurrency);
@@ -99,7 +100,7 @@ namespace TDDLab.Core.Tests
 
             var resultWithAutoConversion = twoPln + threeGbp;
             var resultWithManualConversion = twoPln + threeGbpConvertedToPln;
-            
+
             Assert.AreEqual(resultWithManualConversion, resultWithAutoConversion);
         }
     }
