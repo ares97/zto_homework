@@ -1,4 +1,3 @@
-using System.Linq;
 using NUnit.Framework;
 using TDDLab.Core.InvoiceMgmt;
 
@@ -7,25 +6,24 @@ namespace TDDLab.Core.Tests
     public class RecipientTests
     {
         [Test]
-        public void can_create_valid_recipient()
+        public void valid_recipient_should_be_valid()
         {
-            var recipient = TestData.ValidRecipient;
+            var recipient = ExampleData.ValidRecipient;
             Assert.IsTrue(recipient.IsValid);
         }
 
         [Test]
-        public void recipient_must_has_a_name()
+        public void recipient_without_name_should_be_invelid()
         {
-            var recipient = new Recipient(null, TestData.ValidAddress);
+            var recipient = new Recipient("", ExampleData.ValidAddress);
             Assert.IsFalse(recipient.IsValid);
         }
 
         [Test]
-        public void recipient_must_has_valid_address()
+        public void recipient_should_have_valid_address()
         {
-            var recipient = new Recipient("John", TestData.AddressWithoutCity);
-
-            Assert.IsFalse(TestData.AddressWithoutCity.IsValid);
+            var recipient = new Recipient("Bartlomiej Wroblewski", ExampleData.InvalidAddress);
+            Assert.IsFalse(ExampleData.InvalidAddress.IsValid);
             Assert.IsFalse(recipient.IsValid);
         }
     }

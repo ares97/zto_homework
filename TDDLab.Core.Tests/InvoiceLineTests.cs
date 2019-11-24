@@ -1,4 +1,3 @@
-using System.Linq;
 using NUnit.Framework;
 using TDDLab.Core.InvoiceMgmt;
 
@@ -6,24 +5,19 @@ namespace TDDLab.Core.Tests
 {
     public class InvoiceLineTests
     {
-        [Test]
-        public void can_create_valid_invoice_line()
+        [TestCase("milk", 2ul, "PLN")]
+        [TestCase("breadwithnutsandcockiestakenfromwarmmilk", 2ul, "PLN")]
+        [TestCase("monster_truck_version_2012313&", 2ul, "PLN")]
+        public void valid_invoice_line_should_be_valid(string name, ulong amount, string currency)
         {
-            var invoiceLine = new InvoiceLine("bread", TestData.TwoUsd);
+            var invoiceLine = new InvoiceLine(name, ExampleData.ValidMoney);
             Assert.IsTrue(invoiceLine.IsValid);
         }
 
-        [Test]
-        public void cant_create_valid_invoice_line_with_invalid_money()
+        [TestCase("", 2ul, "PLN")]
+        public void invoice_without_name_should_be_invalid(string name, ulong amount, string currency)
         {
-            var invoiceLine = new InvoiceLine("bread", TestData.MoneyWithoutCurrency);
-            Assert.IsFalse(invoiceLine.IsValid);
-        }
-
-        [Test]
-        public void cant_create_valid_invoice_line_without_product_name()
-        {
-            var invoiceLine = new InvoiceLine("", TestData.TwoUsd);
+            var invoiceLine = new InvoiceLine(name, ExampleData.ValidMoney);
             Assert.IsFalse(invoiceLine.IsValid);
         }
     }

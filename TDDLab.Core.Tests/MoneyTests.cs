@@ -6,102 +6,130 @@ namespace TDDLab.Core.Tests
     public class MoneyTests
     {
         [TestCase(0ul)]
-        [TestCase(13ul)]
-        public void properly_sets_money_amount(ulong amount)
+        [TestCase(123ul)]
+        [TestCase(1000000ul)]
+        public void money_amount_should_be_set(ulong amount)
         {
             var money = new Money(amount);
             Assert.AreEqual(money.Amount, amount);
         }
 
+        [TestCase(0ul, "USD")]
+        [TestCase(1ul, "PLN")]
+        [TestCase(2ul, "EUR")]
+        public void money_currency_should_be_set(ulong amount, string currency)
+        {
+            var money = new Money(amount, currency);
+            Assert.AreEqual(money.Amount, amount);
+        }
 
-        [TestCase(2ul, "USD")]
-        [TestCase(0ul, "PLN")]
-        public void creates_valid_money_with_currency(ulong amount, string currency)
+        [TestCase("USD")]
+        public void money_default_currency_should_be_set(string defaultCurrency)
+        {
+            var money = new Money(0ul);
+            Assert.AreEqual(money.Currency, defaultCurrency);
+        }
+
+        [TestCase(0ul, "USD")]
+        [TestCase(1000000ul, "PLN")]
+        [TestCase(ulong.MaxValue, "PLN")]
+        public void valid_money_should_be_valid(ulong amount, string currency)
         {
             var money = new Money(amount, currency);
             Assert.IsTrue(money.IsValid);
         }
 
-        [TestCase(7ul)]
         [TestCase(0ul)]
-        public void creates_valid_money_without_currency(ulong amount)
+        [TestCase(123ul)]
+        public void valid_money_without_currency_should_be_valid(ulong amount)
         {
             var money = new Money(amount);
             Assert.IsTrue(money.IsValid);
         }
 
-        [TestCase(2ul, 4ul, 6ul)]
-        [TestCase(0ul, 0ul, 0ul)]
-        [TestCase(1ul, 0ul, 1ul)]
-        public void can_figure_money_up_with_plus_operator(ulong first, ulong second, ulong expectedValue)
+        [TestCase(0ul, 0ul)]
+        [TestCase(0ul, 100ul)]
+        [TestCase(110ul, 201ul)]
+        [TestCase(ulong.MaxValue, ulong.MaxValue)]
+        public void money_can_be_added_with_operator(ulong amount1, ulong amount2)
         {
-            var result = new Money(first) + new Money(second);
-            var expected = new Money(expectedValue);
+            var expected = new Money(amount1 + amount2);
+            var result = new Money(amount1) + new Money(amount2);
             Assert.AreEqual(expected, result);
         }
 
-        [TestCase(4ul, 3ul, 1ul)]
-        [TestCase(0ul, 0ul, 0ul)]
-        [TestCase(1ul, 0ul, 1ul)]
-        [TestCase(1ul, 1ul, 0ul)]
-        public void can_figure_money_up_with_minus_operator(ulong first, ulong second, ulong expectedValue)
+        [TestCase(0ul, 0ul)]
+        [TestCase(100ul, 0ul)]
+        [TestCase(201ul, 110ul)]
+        [TestCase(ulong.MaxValue, ulong.MaxValue)]
+        public void money_can_be_substracted_with_operator(ulong amount1, ulong amount2)
         {
-            var result = new Money(first) - new Money(second);
-            var expected = new Money(expectedValue);
+            var expected = new Money(amount1 - amount2);
+            var result = new Money(amount1) - new Money(amount2);
             Assert.AreEqual(expected, result);
         }
 
-        [TestCase(0ul, 11ul, 0ul)]
-        [TestCase(3ul, 133ul, 0ul)]
-        public void should_never_return_less_than_zero_when_subtracting(ulong first, ulong second, ulong expectedValue)
+        [TestCase(0ul, 11ul)]
+        [TestCase(3ul, 133ul)]
+        public void money_substraction_underflow_should_result_in_zero(ulong amount1, ulong amount2)
         {
-            var result = new Money(first) - new Money(second);
-            var expected = new Money(expectedValue);
-            Assert.AreEqual(expected, result);
+            var expectedAmount = 0ul;
+            var result = new Money(amount1) - new Money(amount2);
+            Assert.AreEqual(expectedAmount, result.Amount);
         }
 
-        [TestCase(16ul, null, 16ul)]
-        [TestCase(null, 32ul, 32ul)]
-        public void money_plus_operator_should_treat_null_as_zero(ulong first, ulong second, ulong expectedValue)
+        [TestCase("USD", "PLN")]
+        [TestCase("EUR", "USD")]
+        public void money_addition_with_different_currencies_should_be_valid(string currency1, string currency2)
         {
-            var result = new Money(first) + new Money(second);
-            var expected = new Money(expectedValue);
-            Assert.AreEqual(expected, result);
+            var result = new Money(0ul, currency1) + new Money(0ul, currency2);
+            Assert.IsTrue(result.IsValid);
         }
 
-        [TestCase(16ul, null, 16ul)]
-        [TestCase(null, 32ul, 0ul)]
-        public void money_minus_operator_should_treat_null_as_zero(ulong first, ulong second, ulong expectedValue)
+        [TestCase("USD", "PLN")]
+        [TestCase("EUR", "USD")]
+        public void money_substraction_with_different_currencies_should_be_valid(string currency1, string currency2)
         {
-            var result = new Money(first) - new Money(second);
-            var expected = new Money(expectedValue);
-            Assert.AreEqual(expected, result);
+            var result = new Money(0ul, currency1) - new Money(0ul, currency2);
+            Assert.IsTrue(result.IsValid);
         }
 
-        [TestCase("USD", "USD", "USD")]
-        [TestCase("USD", "PLN", "USD")]
-        [TestCase("PLN", "USD", "PLN")]
-        public void should_convert_to_currency_same_as_in_first_param(string firstCurrency, string secondCurrency,
-            string expectedCurrency)
+        [TestCase("USD", "USD")]
+        [TestCase("USD", "PLN")]
+        [TestCase("PLN", "USD")]
+        [TestCase("EUR", "USD")]
+        public void money_addiition_should_convert_to_first_operand_currency(string currency1, string currency2)
         {
-            var first = new Money(11, firstCurrency);
-            var second = new Money(11, secondCurrency);
-            var resultCurrency = (first + second).Currency;
-
-            Assert.AreEqual(expectedCurrency, resultCurrency);
+            var result = new Money(0, currency1) + new Money(0, currency2);
+            Assert.AreEqual(result.Currency, currency1);
         }
 
-        [Test]
-        public void should_automatically_calculate_conversion_when_adding_different_currencies()
+        [TestCase("USD", "USD")]
+        [TestCase("USD", "PLN")]
+        [TestCase("PLN", "USD")]
+        [TestCase("EUR", "USD")]
+        public void money_substraction_should_convert_to_first_operand_currency(string currency1, string currency2)
         {
-            var twoPln = new Money(2, "PLN");
-            var threeGbp = new Money(3, "GBP").ToCurrency("GBP");
-            var threeGbpConvertedToPln = threeGbp.ToCurrency("PLN");
+            var result = new Money(0, currency1) - new Money(0, currency2);
+            Assert.AreEqual(result.Currency, currency1);
+        }
 
-            var resultWithAutoConversion = twoPln + threeGbp;
-            var resultWithManualConversion = twoPln + threeGbpConvertedToPln;
+        [TestCase("USD", "USD")]
+        [TestCase("USD", "PLN")]
+        [TestCase("PLN", "USD")]
+        [TestCase("EUR", "USD")]
+        public void money_should_be_properly_converted(string currency1, string currency2)
+        {
+            var money1 = new Money(1000, currency1);
+            var money2 = new Money(1000, currency2);
 
-            Assert.AreEqual(resultWithManualConversion, resultWithAutoConversion);
+            var secondConvertedToFirst = money2.ToCurrency(currency1);
+
+            var expected = money1 + secondConvertedToFirst;
+            var result = money1 + money2;
+
+            Assert.AreEqual(expected.Currency, result.Currency);
+            Assert.AreEqual(expected.Amount, result.Amount);
         }
     }
 }
