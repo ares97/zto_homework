@@ -4,17 +4,8 @@ using TDDLab.Core.InvoiceMgmt;
 
 namespace TDDLab.Core.Tests
 {
-    public class Tests
+    public class AddressTests
     {
-        private Recipient _recipient;
-
-        [SetUp]
-        public void Setup()
-        {
-            _recipient = new Recipient("Radek S", new Address("Matki Polki 1a", "Gdansk", "Poland", "80-251"));
-            var invoice = new Invoice("1", _recipient, _recipient.Address, new []{new InvoiceLine("bread", new Money(10, "PLN")), });
-        }
-
         [TestCase("", "Gdansk", "Poland", "80-250")]
         [TestCase("Sobotki", "", "Poland", "80-250")]
         [TestCase("Sobotki", "Gdansk", "", "80-250")]
@@ -24,8 +15,13 @@ namespace TDDLab.Core.Tests
             var address = new Address(addressLine, city, state, zip);
             Assert.IsFalse(address.IsValid);
         }
-        
-        
-        
+
+        [Test]
+        public void can_create_valid_address()
+        {
+            var address = TestData.ValidAddress;
+            Assert.IsTrue(address.IsValid);
+        }
+
     }
 }
