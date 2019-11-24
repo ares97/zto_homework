@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/Users/radek-home/Desktop/testy/TDDLab.Core.Tests/TDDLab.Core.Tests.csproj": {}
+    "/Users/radek-home/Desktop/testy/TDDLab.Core.Test/TDDLab.Core.Test.csproj": {}
   },
   "projects": {
     "/Users/radek-home/Desktop/testy/BasicUtils/BasicUtils.csproj": {
@@ -15,14 +15,14 @@
         "net461": {}
       }
     },
-    "/Users/radek-home/Desktop/testy/TDDLab.Core.Tests/TDDLab.Core.Tests.csproj": {
+    "/Users/radek-home/Desktop/testy/TDDLab.Core.Test/TDDLab.Core.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/radek-home/Desktop/testy/TDDLab.Core.Tests/TDDLab.Core.Tests.csproj",
-        "projectName": "TDDLab.Core.Tests",
-        "projectPath": "/Users/radek-home/Desktop/testy/TDDLab.Core.Tests/TDDLab.Core.Tests.csproj",
+        "projectUniqueName": "/Users/radek-home/Desktop/testy/TDDLab.Core.Test/TDDLab.Core.Test.csproj",
+        "projectName": "TDDLab.Core.Test",
+        "projectPath": "/Users/radek-home/Desktop/testy/TDDLab.Core.Test/TDDLab.Core.Test.csproj",
         "packagesPath": "/Users/radek-home/.nuget/packages/",
-        "outputPath": "/Users/radek-home/Desktop/testy/TDDLab.Core.Tests/obj/",
+        "outputPath": "/Users/radek-home/Desktop/testy/TDDLab.Core.Test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/radek-home/.config/NuGet/NuGet.Config"
@@ -36,9 +36,6 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "/Users/radek-home/Desktop/testy/BasicUtils/BasicUtils.csproj": {
-                "projectPath": "/Users/radek-home/Desktop/testy/BasicUtils/BasicUtils.csproj"
-              },
               "/Users/radek-home/Desktop/testy/TDDLab.Core/TDDLab.Core.csproj": {
                 "projectPath": "/Users/radek-home/Desktop/testy/TDDLab.Core/TDDLab.Core.csproj"
               }

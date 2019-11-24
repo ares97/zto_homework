@@ -6,16 +6,15 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.0": {
-      "TDDLab.Core.Tests/1.0.0": {
+      "TDDLab.Core.Test/1.0.0": {
         "dependencies": {
-          "BasicUtils": "1.0.0",
           "Microsoft.NET.Test.Sdk": "16.2.0",
           "NUnit3TestAdapter": "3.13.0",
           "TDDLab.Core": "1.0.0",
           "NUnit": "3.12.0"
         },
         "runtime": {
-          "TDDLab.Core.Tests.dll": {}
+          "TDDLab.Core.Test.dll": {}
         }
       },
       "Microsoft.CodeCoverage/16.2.0": {
@@ -1026,7 +1025,7 @@
     }
   },
   "libraries": {
-    "TDDLab.Core.Tests/1.0.0": {
+    "TDDLab.Core.Test/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

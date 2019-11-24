@@ -36,7 +36,7 @@
         <e p="TDDLab.Core.csproj" t="IncludeRecursive" />
         <e p="Validation_sample.cs" t="Include" />
       </e>
-      <e p="TDDLab.Core.Tests" t="IncludeRecursive">
+      <e p="TDDLab.Core.Test" t="IncludeRecursive">
         <e p="AddressTests.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="InvoiceLineTests.cs" t="Include" />
@@ -45,12 +45,12 @@
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.0" t="Include">
-              <e p="TDDLab.Core.Tests.AssemblyInfo.cs" t="Include" />
+              <e p="TDDLab.Core.Test.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
         <e p="RecipientTests.cs" t="Include" />
-        <e p="TDDLab.Core.Tests.csproj" t="IncludeRecursive" />
+        <e p="TDDLab.Core.Test.csproj" t="IncludeRecursive" />
         <e p="TestUtils.cs" t="Include" />
       </e>
       <e p="TDDLab.sln" t="IncludeFlat" />
