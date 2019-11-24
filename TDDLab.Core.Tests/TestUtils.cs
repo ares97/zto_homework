@@ -16,7 +16,8 @@ namespace TDDLab.Core.Tests
         public static readonly Money TenUsd = new Money(10, "USD");
         public static readonly Money MoneyWithoutCurrency = new Money(2, null);
 
-        
-
+        public static readonly InvoiceLine InvoiceLineBread = new InvoiceLine("Bread", TwoUsd);
+        public static readonly InvoiceLine InvoiceLineButter = new InvoiceLine("Butter", FiveUsd);
+        public static readonly InvoiceLine InvoiceLineCheese = new InvoiceLine("Cheese", TenUsd);
     }
 }
